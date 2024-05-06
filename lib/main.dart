@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
               create: (context) => CapybaraAction(
                   action: 'walk',
                   emotion: '开心',
-                  movement: '0',
+                  movement: 'around',
                   description: '牛马打工中')),
           ChangeNotifierProvider(
               create: (context) =>
