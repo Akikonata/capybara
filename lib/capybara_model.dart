@@ -25,7 +25,7 @@ class _CapybaraModelState extends State<CapybaraModel> {
     final capybaraAction = Provider.of<CapybaraAction>(context);
     final globalConfig = Provider.of<GlobalConfig>(context);
     controller.loadRequest(Uri.parse(
-        '${globalConfig.baseURL}/?action=${capybaraAction.action}&description=${capybaraAction.description}&emotion=${capybaraAction.emotion}&movement=${capybaraAction.movement}'));
+        'http://${globalConfig.localAssetsServer}:${globalConfig.localAssetsServerPort}/?action=${capybaraAction.action}&description=${capybaraAction.description}&emotion=${capybaraAction.emotion}&movement=${capybaraAction.movement}'));
     return Expanded(child: WebViewWidget(controller: controller));
   }
 }

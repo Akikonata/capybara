@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:capybara/chat_form.dart';
 import 'package:provider/provider.dart';
@@ -5,9 +6,26 @@ import 'package:capybara/capybara_action.dart';
 import 'package:capybara/capybara_field.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:capybara/global_config.dart';
+import 'package:local_assets_server/local_assets_server.dart';
+
+String _address = '';
+int _port = 8080;
+
+initServer() async {
+  final server = LocalAssetsServer(
+    address: InternetAddress.loopbackIPv4,
+    assetsBasePath: 'www',
+    logger: const DebugLogger(),
+  );
+
+  final address = await server.serve();
+  _address = address.address;
+  _port = server.boundPort!;
+}
 
 Future<void> main() async {
   await dotenv.load();
+  await initServer();
   runApp(const MyApp());
 }
 
@@ -80,8 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   movement: 'around',
                   description: '牛马打工中')),
           ChangeNotifierProvider(
-              create: (context) =>
-                  GlobalConfig(baseURL: (dotenv.env['BASE_URL'] ?? 'http://')))
+              create: (context) => GlobalConfig(
+                  baseURL: (dotenv.env['BASE_URL'] ?? 'http://'),
+                  localAssetsServer: _address,
+                  localAssetsServerPort: _port.toString()))
         ],
         builder: (context, child) => Scaffold(
             appBar: AppBar(
