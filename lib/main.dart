@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:capybara/chat_form.dart';
 import 'package:provider/provider.dart';
 import 'package:capybara/capybara_action.dart';
-import 'package:capybara/capybara_field.dart';
+import 'package:capybara/capybara_model.dart';
+import 'package:capybara/capybara_description.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:capybara/global_config.dart';
 import 'package:local_assets_server/local_assets_server.dart';
@@ -132,7 +133,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 // wireframe for each widget.
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const CapybaraField(),
+                  const CapybaraModel(),
+                  const CapybaraDescription(),
                   // 使用Spacer来在底部创建空间
                   Container(
                     color: Theme.of(context).colorScheme.inversePrimary,
